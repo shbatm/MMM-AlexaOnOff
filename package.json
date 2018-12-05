@@ -1,0 +1,25 @@
+{
+  "name": "MMM-AlexaOnOff",
+  "version": "0.1.0",
+  "description": "Send MagicMirror simple On/Off commands from any home automation device supporting Belkin Wemos devices.",
+  "main": "MMM-AlexaOnOff.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shbatm/MMM-AlexaOnOff.git"
+  },
+  "keywords": [
+    "MagicMirror",
+    "AlexaOnOff",
+    "wemos",
+    "fauxmo"
+  ],
+  "author": "shbatm",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shbatm/MMM-AlexaOnOff/issues"
+  },
+  "homepage": "https://github.com/shbatm/MMM-AlexaOnOff#readme",
+  "dependencies": {
+    "fauxmojs": "^1.0.3"
+  }
+}
