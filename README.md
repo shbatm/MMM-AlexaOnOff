@@ -17,6 +17,7 @@ This module also does not control anything on it's own by design. There are plen
     ```shell
     cd ~/MagicMirror/modules
     git clone https://github.com/shbatm/MMM-AlexaOnOff.git
+    cd MMM-AlexaOnOff/
     npm install
     ```
 2. Setup the configuration using the details below.
