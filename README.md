@@ -46,7 +46,8 @@ var config = {
 
 | Option           | Description
 |----------------- |-----------
-| `devices`        | *Required* devices accepts a mixed array of strings with device names (e.g. `"Magic Mirror"`) or objects of the form:<br>`{`<br>`  name: "Device Name",`<br>`  on: {`<br>`    notification: "NOTIFICATION_TITLE",`<br>`    payload: "NOTIFICATION PAYLOAD"`<br>`  },`<br>`  off: { `<br>`    notification: "NOTIFICATION_TITLE",`<br>`    payload: "NOTIFICATION PAYLOAD"`<br>`  },`<br>`}`<br>*Note:* If you provide only string names, or don't provide details on the `on` or `off` notification you want to send, a generic "MMM-AlexaOnOff_ACTION_RECEIVED" notification will be sent with the device name and action in the payload. While not useful by itself, you could have a module that watched for this and did something.
+| `devices`        | *Required* devices accepts a mixed array of strings with device names (e.g. `"Magic Mirror"`) or objects of the form:<br>`{`<br>`  name: "Device Name",`<br>`  on: {`<br>`    notification: "NOTIFICATION_TITLE",`<br>`    payload: "NOTIFICATION PAYLOAD"`<br>`  },`<br>`  off: { `<br>`    notification: "NOTIFICATION_TITLE",`<br>`    payload: "NOTIFICATION PAYLOAD"`<br>`  },`<br>`}`<br><br>In addition to a single notification, `on:` or `off:` can also accept an array of notifications to send. See example below.
+<br>*Note:* If you provide only string names, or don't provide details on the `on` or `off` notification you want to send, a generic "MMM-AlexaOnOff_ACTION_RECEIVED" notification will be sent with the device name and action in the payload. While not useful by itself, you could have a module that watched for this and did something.
 | `netInterface` | *Optional* Network interface you are using<br>Default: `wlan0` for WiFi. If your mirror uses wired ethernet, use `eth0`.
 | `netProtocol` | *Optional* Network protocol you are using<br>Default: `IPv4`, change only if you use `IPv6` exclusively.
 | `startPort` | *Optional* Starting network port to use. Each device you create will be given its own port in a series starting with this one. 
@@ -66,6 +67,7 @@ To use:
 
 #### Example Configuration
 
+**Turn on or off the monitor using MMM-OnScreenMenu module:**
 ```js
 {
     module: 'MMM-OnScreenMenu',
@@ -84,6 +86,60 @@ To use:
                 notification: "ONSCREENMENU_PROCESS_ACTION",
                 payload: { actionName:'monitorOff' }
               },
+        }]
+    }
+}
+```
+
+**Show or hide a module using the MMM-RemoteControl module:**
+(see [here](https://github.com/Jopyth/MMM-Remote-Control#list-of-actions) for specifics on the module identifier needed)
+```js
+{
+    module: 'MMM-AlexaOnOff',
+    config: {
+        devices: [{ 
+              name: "Clock Module",
+              on: { 
+                notification: "REMOTE_ACTION",
+                payload: { action: "SHOW", module: "module_3_clock" }
+              },
+              off: { 
+                notification: "REMOTE_ACTION",
+                payload: { action: "HIDE", module: "module_3_clock" }
+              },
+        }]
+    }
+}
+```
+
+**Sending multiple notifications with one device:**
+Config section to do this with MMM-Remote-Control (see [here](https://github.com/Jopyth/MMM-Remote-Control#list-of-actions) for specifics on the module identifier needed):
+```js
+{
+    module: 'MMM-AlexaOnOff',
+    config: {
+        devices: [{ 
+              name: "Calendar",
+              on: [
+                  { 
+                    notification: "REMOTE_ACTION",
+                    payload: { action: "SHOW", module: "module_4_calendar" }
+                  },
+                  { 
+                    notification: "REMOTE_ACTION",
+                    payload: { action: "HIDE", module: "module_3_clock" }
+                  }
+              ],
+              off: [
+                  { 
+                    notification: "REMOTE_ACTION",
+                    payload: { action: "HIDE", module: "module_4_calendar" }
+                  },
+                  { 
+                    notification: "REMOTE_ACTION",
+                    payload: { action: "SHOW", module: "module_3_clock" }
+                  }
+              ],
         }]
     }
 }

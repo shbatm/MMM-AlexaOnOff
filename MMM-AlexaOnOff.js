@@ -16,19 +16,6 @@ Module.register("MMM-AlexaOnOff", {
         devices: [
             "Magic Mirror",
         ]
-        /* devices accepts a mixed array of strings or objects of the form:
-            { 
-              name: "Device Name",
-              on: { 
-                notification: "NOTIFICATION_TITLE",
-                payload: "NOTIFICATION PAYLOAD"
-              },
-              off: { 
-                notification: "NOTIFICATION_TITLE",
-                payload: "NOTIFICATION PAYLOAD"
-              },
-            }
-        */
     },
 
     requiresVersion: "2.5.0", // Required version of MagicMirror
@@ -50,7 +37,15 @@ Module.register("MMM-AlexaOnOff", {
             this.config.devices.forEach(d => {
                 if (typeof d === "object" && payload.device === d.name) {
                     if (payload.action in d) {
-                        this.sendNotification(d[payload.action].notification, d[payload.action].payload);
+                        if (Object.prototype.toString.call(d[payload.action]) === '[object Array]') {
+                            // Array of notifications present
+                            d[payload.action].forEach(n => {
+                                this.sendNotification(n.notification, n.payload);    
+                            });
+                        } else {
+                            // Single notification present
+                            this.sendNotification(d[payload.action].notification, d[payload.action].payload);
+                        }
                     } else {
                         this.sendNotification("MMM-AlexaOnOff_ACTION_RECEIVED", payload);
                     }
