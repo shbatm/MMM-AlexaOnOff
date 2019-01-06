@@ -52,7 +52,7 @@ module.exports = NodeHelper.create({
         });
 
         console.info(`FauxMo service started. Listening on ${this.ip}:${this.config.startPort}${(this.config.devices.length > 1) ? "-" +
-            this.config.startPort + this.config.devices.length - 1 : ""}`);
+            (this.config.startPort + (this.config.devices.length - 1)) : ""}`);
         this.initialized = true;
     },
 
