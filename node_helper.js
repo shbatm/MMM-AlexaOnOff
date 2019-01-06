@@ -35,6 +35,7 @@ module.exports = NodeHelper.create({
 
         this.config.devices.forEach((d, i) => {
             let dName = (typeof d === "string") ? d : d.name;
+            console.log( this.config.startPort + i);
             dev.push({
                 name: dName,
                 port: this.config.startPort + i,
@@ -50,8 +51,8 @@ module.exports = NodeHelper.create({
             devices: dev
         });
 
-        console.info(`FauxMo service started. Listening on ${this.ip}:${this.config.startPort}${(this.config.devices.count > 1) ? "-" +
-            this.config.startPort + this.config.devices.count - 1 : ""}`);
+        console.info(`FauxMo service started. Listening on ${this.ip}:${this.config.startPort}${(this.config.devices.length > 1) ? "-" +
+            this.config.startPort + this.config.devices.length - 1 : ""}`);
         this.initialized = true;
     },
 
