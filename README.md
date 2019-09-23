@@ -4,6 +4,10 @@ This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror
 
 Send MagicMirror simple On/Off commands from any home automation device supporting Wemos devices through the [`fauxmojs`](https://github.com/dsandor/fauxmojs) Node.js module. No AWS, microphones, buttons, or 3rd-Party hubs required.
 
+### DISCLAIMER: Project Not in Active Development
+
+I am not actively working on this project at the moment since I don't use it on my MagicMirrors.  I am currently using NodeRED and the API provided by [MMM-Remote-Control](https://github.com/Jopyth/MMM-Remote-Control) to control my mirrors.  I'm not going to be able to perform any direct troubleshooting, but I will accept any PRs to correct identified issues.
+
 ## Installation
 
 *Assumptions:* This module assumes that you have a stand-alone home automation device, such as an Amazon Echo, Echo Dot, Google Home Hub, etc. This module receives commands from these devices over your WiFi and, using [dsandor's](https://github.com/dsandor) fauxmojs Fake Wemos module, translates them into commands for the MagicMirror.
